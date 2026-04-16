@@ -342,16 +342,29 @@ export default function App() {
     reader.onload = (event) => {
       try {
         const data = JSON.parse(event.target?.result as string);
-        if (data.nodes) {
-          setNodes(data.nodes);
+        if (data.nodes && Array.isArray(data.nodes)) {
+          setNodes(prev => {
+            const nodeMap = new Map(prev.map(n => [n.id, n]));
+            
+            data.nodes.forEach((importedNode: AppNode) => {
+              // If node exists, we merge it (imported takes precedence)
+              // If not, we add it
+              nodeMap.set(importedNode.id, importedNode);
+            });
+
+            return Array.from(nodeMap.values());
+          });
+
           if (data.activeFileId) setActiveFileId(data.activeFileId);
-          alert('Данные успешно импортированы!');
+          alert('Данные успешно объединены с текущими заметками!');
         }
       } catch (err) {
-        alert('Ошибка при импорте JSON');
+        alert('Ошибка при импорте JSON. Убедитесь, что файл корректен.');
       }
     };
     reader.readAsText(file);
+    // Reset input value to allow importing the same file again if needed
+    e.target.value = '';
   };
 
   const handleCreateItem = () => {
