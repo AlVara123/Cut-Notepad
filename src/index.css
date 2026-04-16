@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@layer base {
+  .tiptap-editor {
+    @apply w-full;
+  }
+
+  .tiptap-editor .ProseMirror {
+    @apply outline-none min-h-[200px];
+  }
+
+  .tiptap-editor .ProseMirror p {
+    @apply mb-4;
+  }
+
+  .tiptap-editor .ProseMirror ul {
+    @apply list-disc ml-6 mb-2;
+  }
+
+  .tiptap-editor .ProseMirror ol {
+    @apply list-decimal ml-6 mb-2;
+  }
+
+  .tiptap-editor .ProseMirror li p {
+    @apply mb-1;
+  }
+
+  .tiptap-editor .ProseMirror table {
+    @apply border-collapse table-fixed w-full my-4 overflow-hidden border border-pink-100 dark:border-purple-800;
+  }
+
+  .tiptap-editor .ProseMirror td,
+  .tiptap-editor .ProseMirror th {
+    @apply border border-pink-100 dark:border-purple-800 p-2 relative align-top min-w-[1em];
+  }
+
+  .tiptap-editor .ProseMirror th {
+    @apply font-bold text-left bg-pink-50/50 dark:bg-purple-900/30;
+  }
+
+  .tiptap-editor .ProseMirror .selectedCell:after {
+    @apply absolute inset-0 bg-pink-200/30 dark:bg-purple-500/30 pointer-events-none content-[''];
+  }
+
+  .tiptap-editor .ProseMirror blockquote {
+    @apply border-l-4 border-pink-200 dark:border-purple-700 pl-4 py-1 my-4 italic text-pink-700/80 dark:text-purple-300/80 bg-pink-50/30 dark:bg-purple-900/20 rounded-r-lg;
+  }
+
+  .tiptap-editor .ProseMirror strong {
+    @apply font-bold;
+  }
+
+  .tiptap-editor .ProseMirror em {
+    @apply italic;
+  }
+
+  .tiptap-editor .ProseMirror u {
+    @apply underline;
+  }
+
+  .tiptap-editor .ProseMirror img {
+    @apply max-w-full h-auto rounded-xl my-4 inline-block;
+  }
+
+  /* Dark mode adjustments */
+  .tiptap-dark .ProseMirror {
+    @apply text-purple-50;
+  }
+
+  .tiptap-dark .ProseMirror p {
+    @apply text-purple-50/90;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black/5 dark:bg-white/5 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-pink-400 dark:bg-purple-500 border-2 border-solid border-transparent bg-clip-padding;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-pink-500 dark:bg-purple-400;
+  }
+}

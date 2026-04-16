@@ -1,0 +1,6 @@
+{
+  "name": "Милый Блокнот",
+  "description": "Простой и милый блокнот с подсчетом слов и символов, темной темой и экспортом в TXT.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
