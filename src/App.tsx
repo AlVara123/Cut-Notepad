@@ -225,6 +225,7 @@ export default function App() {
   const [lastSaved, setLastSaved] = useState<string>(() => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [isAutosaving, setIsAutosaving] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState<'text' | 'highlight' | 'fontSize' | 'lineHeight' | null>(null);
+  const isInternalUpdate = useRef(false);
 
   const activeFile = nodes.find(n => n.id === activeFileId && n.type === 'file') as FileNode | undefined;
 
@@ -253,6 +254,7 @@ export default function App() {
     onUpdate: ({ editor }) => {
       if (activeFileId) {
         const html = editor.getHTML();
+        isInternalUpdate.current = true;
         setNodes(prev => prev.map(n => n.id === activeFileId ? { ...n, content: html } : n));
       }
       updateCounts(editor.getText());
@@ -277,6 +279,21 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('active-file-id', activeFileId || '');
   }, [activeFileId]);
+
+  // Sync editor content with active file content (for external updates like import)
+  useEffect(() => {
+    if (!editor || !activeFile) return;
+
+    if (isInternalUpdate.current) {
+      isInternalUpdate.current = false;
+      return;
+    }
+
+    if (editor.getHTML() !== activeFile.content) {
+      editor.commands.setContent(activeFile.content, { emitUpdate: false });
+      updateCounts(editor.getText());
+    }
+  }, [activeFile?.content, editor]);
 
   // Load theme preference
   useEffect(() => {
