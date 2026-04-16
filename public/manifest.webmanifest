@@ -1,0 +1,15 @@
+{
+  "name": "Cut Notepad",
+  "short_name": "Notepad",
+  "start_url": "/Cut-Notepad/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffc0cb",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/566/566445.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
